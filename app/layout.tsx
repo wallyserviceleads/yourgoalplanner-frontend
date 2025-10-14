@@ -1,39 +1,26 @@
+// app/layout.tsx
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// ✅ Use these exact imports
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
 export const metadata: Metadata = {
-  title: "YourGoalPlanner — Plan and celebrate your revenue goals",
-  description: 
-    "Design rituals, track forecasts, and celebrate progress with YourGoalPlanner's goal planning platform for subscription founders.",
+  title: "YourGoalPlanner",
+  description: "Goal planning calendar",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="/styles.css" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    // ✅ Apply the font variables on <html>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      {/* If you use Tailwind, `font-sans` uses your configured sans stack */}
+      <body className="font-sans">{children}</body>
     </html>
   );
 }
