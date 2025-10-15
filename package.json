@@ -12,7 +12,8 @@
     "react-dom": "19.1.0",
     "next": "15.5.4",
     "@auth0/nextjs-auth0": "^3.5.0",
-    "stripe": "^14.0.0"
+    "stripe": "^14.0.0",
+    "geist": "^1"
   },
   "devDependencies": {
     "typescript": "^5",
