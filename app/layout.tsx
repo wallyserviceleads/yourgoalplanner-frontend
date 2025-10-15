@@ -2,9 +2,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-// ✅ Use these exact imports
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+// ✅ Geist fonts re-exported from ./fonts to use the new sans/mono entrypoints
+import { GeistSans, GeistMono } from "./fonts";
 
 export const metadata: Metadata = {
   title: "YourGoalPlanner",
