@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import { getSession } from '@auth0/nextjs-auth0';
 import { patchUserAppMetadata } from '@/lib/auth0-mgmt';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2024-06-20' });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, 
 
 export async function GET() {
   const session = await getSession();
