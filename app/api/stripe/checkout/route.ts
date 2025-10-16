@@ -8,7 +8,7 @@ export async function POST() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, 
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string); 
 
   const priceId = process.env.STRIPE_PRICE_MONTHLY as string;
   if (!priceId) {
