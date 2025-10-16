@@ -6,7 +6,7 @@ import { patchUserAppMetadata } from '@/lib/auth0-mgmt';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, 
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string); 
   const sig = (await headers()).get('stripe-signature');
   if (!sig) return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
 
