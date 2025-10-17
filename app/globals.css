@@ -1,4 +1,100 @@
 @import "tailwindcss";
+/* ===== Base layout tokens ===== */
+:root {
+  --page-max: 1100px;
+  --pad: 1rem;
+  --pad-lg: 2rem;
+  --radius: 12px;
+}
+
+/* Use Geist variables from layout */
+html { 
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+code, pre, kbd, samp {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* ===== Utility classes the markup expects ===== */
+.container {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+.section {
+  padding-block: var(--pad-lg);
+}
+.section--tight {
+  padding-block: var(--pad);
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .625rem 1rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.1;
+  transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.button:hover { transform: translateY(-1px); }
+.button:active { transform: translateY(0); }
+
+.button--primary {
+  background: black; color: white;
+}
+.button--primary:hover { background: #111; }
+.button--outline {
+  background: white; color: black; border-color: #e5e7eb;
+}
+.button--ghost {
+  background: transparent; color: black;
+}
+
+/* Cards / panels (if used) */
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: var(--pad);
+  background: #fff;
+}
+
+/* ===== Top navigation (horizontal) ===== */
+.site-nav {
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+}
+.site-nav .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 64px;
+}
+.site-nav .brand {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-weight: 700; text-decoration: none; color: inherit;
+}
+.site-nav .links {
+  display: flex; align-items: center; gap: .75rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.site-nav .links a {
+  text-decoration: none; color: inherit; padding: .5rem .75rem; border-radius: .5rem;
+}
+.site-nav .links a:hover { background: #f7f7f7; }
+
+/* Footer (optional) */
+.site-footer {
+  border-top: 1px solid #f0f0f0; padding-block: var(--pad);
+  color: #6b7280; font-size: .925rem;
+}
 
 /* Make Geist the default app fonts */
 html { 
