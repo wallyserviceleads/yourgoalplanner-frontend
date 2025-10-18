@@ -1,19 +1,51 @@
+import { createHash } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { handleAuth } from "@auth0/nextjs-auth0";
 
 const authHandler = handleAuth();
 
+const MIN_SECRET_LENGTH = 32;
+
+function rememberSecret(value: string) {
+  process.env.AUTH0_SECRET = value;
+  return value;
+}
+
+function deriveSecretFromClientSecret(clientSecret: string) {
+  return createHash("sha256").update(clientSecret).digest("hex");
+}
+
 function resolveAuth0Secret() {
-  if (process.env.AUTH0_SECRET && process.env.AUTH0_SECRET.length > 0) {
-    return process.env.AUTH0_SECRET;
+  const configuredSecret = process.env.AUTH0_SECRET?.trim();
+
+  if (configuredSecret && configuredSecret.length >= MIN_SECRET_LENGTH) {
+    return configuredSecret;
+  }
+
+  const clientSecret = process.env.AUTH0_CLIENT_SECRET?.trim();
+
+  if (clientSecret && clientSecret.length > 0) {
+    const derivedSecret = deriveSecretFromClientSecret(clientSecret);
+
+    if (!configuredSecret) {
+      console.warn(
+        "AUTH0_SECRET is not configured. Deriving a secret from AUTH0_CLIENT_SECRET."
+      );
+    }
+
+    return rememberSecret(derivedSecret);
   }
 
   if (process.env.NODE_ENV !== "production") {
-    const fallbackSecret =
-      process.env.AUTH0_CLIENT_SECRET || "development-yourgoalplanner-secret";
+    const fallbackSecret = "development-yourgoalplanner-secret";
 
-    process.env.AUTH0_SECRET = fallbackSecret;
-    return fallbackSecret;
+    console.warn(
+      "AUTH0_SECRET and AUTH0_CLIENT_SECRET are missing. Using a hard-coded development secret."
+    );
+    
+    return rememberSecret(fallbackSecret);
+  }
+  
   }
 
   return undefined;
