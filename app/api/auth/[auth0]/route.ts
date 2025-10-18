@@ -45,8 +45,7 @@ function resolveAuth0Secret() {
     
     return rememberSecret(fallbackSecret);
   }
-  
-  }
+
 
   return undefined;
 }
