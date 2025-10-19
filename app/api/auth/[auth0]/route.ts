@@ -5,11 +5,10 @@ import { handleAuth } from "@auth0/nextjs-auth0";
  * automatically read all the necessary environment variables (like AUTH0_SECRET,
  * AUTH0_BASE_URL, etc.) when it initializes.
  *
- * By simplifying this file, we remove the complex and error-prone logic
- * that was attempting to set the secret at runtime, which was causing the 500 error.
- * The library will now correctly handle the configuration, provided the
- * environment variables are set in your Vercel project.
- *
- * This exports the GET and POST handlers for the /api/auth/[auth0] route.
+ * This file creates a single handler from the SDK and exports it to handle
+ * both GET and POST requests for all Auth0 routes (e.g., /login, /logout, /callback).
+ * This corrected export syntax resolves the "405 Method Not Allowed" error.
  */
-export const { GET, POST } = handleAuth();
+const handler = handleAuth();
+
+export { handler as GET, handler as POST };
