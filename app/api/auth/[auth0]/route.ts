@@ -51,7 +51,7 @@ function resolveAuth0Secret() {
 
 async function handler(
   request: NextRequest,
-  context: { params: Promise<Record<string, string | string[]>> }
+  context: Parameters<typeof authHandler>[1]
 ) {
   const secret = resolveAuth0Secret();
 
@@ -63,9 +63,7 @@ async function handler(
     );
   }
 
-  const params = (await context.params) ?? {};
-
-  return authHandler(request, { params });
+   return authHandler(request, context);
 }
 
 export { handler as GET, handler as POST };
